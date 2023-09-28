@@ -1,0 +1,93 @@
+{
+  "work_experience": [
+    {
+      "date": "01/09/2022 – CURRENT",
+      "location": "Osijek, Croatia",
+      "position": "DEVOPS ENGINEER TTTECH AUTO",
+      "tasks": [
+        "Writing scripts using Python for various operational needs.",
+        "Managing workflows and pipelines through Git, Jenkins, and Github Actions.",
+        "Utilizing Terraform and Azure for infrastructure setup and management.",
+        "Administering Linux systems and managing artifacts with Artifactory.",
+        "Writing unit and functional tests in Python for software validation.",
+        "Operating runners for continuous integration and continuous delivery.",
+        "Employing Jira, Confluence and Bitbucket for efficient project and version management."
+      ],
+      "technologies": [
+        "Python",
+        "Git & GitHub Actions",
+        "Jenkins",
+        "Terraform",
+        "Azure",
+        "Linux"
+      ]
+    },
+    {
+      "date": "01/10/2019 – 01/09/2022",
+      "location": "Osijek, Croatia",
+      "position": "SOFTWARE ENGINEER TTTECH AUTO",
+      "tasks": [
+        "As part of the Vehicle Communication team, developed the software component responsible for managing communication between AUTOSAR RTE (CAN bus communication, ETH) and application SWC, using Python and C.",
+        "Tasks included data mapping of CAN bus signals to system side data elements, raw to physical values conversions of CAN signals, E2E protection, PDU state machine handling, code generation based on used model, and validation of generated code.",
+        "Developed Python scripts for handling logic for creating code and other tasks using Jinja2 templates.",
+        "Dual role as a Scrum Master for the team, managing agile practices and development work"
+      ],
+      "technologies": ["Python", "Jinja2", "Scrum Master", "Agile"]
+    },
+    {
+      "date": "01/10/2018 – 01/10/2019 Osijek, Croatia",
+      "location": "Osijek, Croatia",
+      "position": "SOFTWARE ENGINEER TTTECH AUTO",
+      "tasks": [
+        "Involved in the development and maintenance of a Windows GUI application using C# to manage data exchange between different bus systems (CAN, CAN-FD, FlexRay, and automotive Ethernet) in the intelligent gateway device PC-3.",
+        "Implemented new features, provided user support, and ensured efficient operation of the application.",
+        "UWorked on elements such as setting routing tables, manipulations, triggers, and the choice of downloading the scenario to the PC-3 board or using it as a replay block."
+      ],
+      "technologies": ["C#", "Windows GUI", "Scrum"]
+    },
+    {
+      "date": "01/10/2017 – 01/10/2018 Osijek, Croatia",
+      "location": "Osijek, Croatia",
+      "position": "INTERNSHIP TTTECH AUTO",
+      "tasks": [
+        "Developed a driver tracking algorithm using Python and the vehicle's onboard camera, leveraging OpenCV and the Viola-Jones algorithm for object detection",
+        "The algorithm detects the driver's head in each frame and uses three detectors: eye, profile, and front face. It tracks whether the driver's eyes are closed, whether they are looking sideways, and if the head has been down for an extended period.",
+        "Conducted successful testing of the solution under varying light conditions, noting the algorithm's high efficiency in some light conditions and the need for upgrades under others for more accurate results"
+      ],
+      "technologies": ["Python", "OpenCV", "Object Detection"]
+    }
+  ],
+  "education_and_training": [
+    {
+      "date": "01/10/2013 – 01/07/2016",
+      "location": "Osijek, Croatia",
+      "degree": "BACHELOR'S DEGREE IN COMPUTER SCIENCE",
+      "institution": "Faculty of Electrical Engineering, Computer Science and Information Technology Osijek"
+    },
+    {
+      "date": "01/10/2016 – 01/10/2018",
+      "location": "Osijek, Croatia",
+      "degree": "MASTER'S DEGREE IN COMPUTER SCIENCE",
+      "institution": "Faculty of Electrical Engineering, Computer Science and Information Technology Osijek"
+    },
+    {
+      "date": "28/10/2019 – 11/11/2019",
+      "location": "Osijek, Croatia",
+      "course": "PYTHON BASIC COURSE",
+      "institution": "Institut RT-RK Osijek d.o.o., Osijek"
+    },
+    {
+      "date": "01/02/2023 – 01/03/2023",
+      "location": "Osijek, Croatia",
+      "course": "DEVOPS FUNDAMENTALS - CI/CD WITH AWS +DOCKER+ANSIBLE+JENKINS Udemy",
+      "institution": ""
+    },
+    {
+      "date": "01/10/2022 – 01/11/2022",
+      "location": "Osijek, Croatia",
+      "course": "THE COMPLETE GITHUB ACTIONS & WORKFLOWS GUIDE Udemy",
+      "institution": ""
+    }
+  ],
+  "skills": ["Python", "Linux", "Github actions"]
+}
