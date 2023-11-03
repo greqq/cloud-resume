@@ -3,16 +3,20 @@ import { useState, useEffect } from "react";
 
 function VisitorCounter() {
   const [visitCount, setVisitCount] = useState(null);
+  const [loading, setLoading] = useState(true);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    let isMounted = true; // add a flag to track component mounting status
+    let isMounted = true;
     fetch(apiUrl, {
       method: "POST",
     })
-      .then((response) => response.text())
-      .then((count) => {
-        if (isMounted) setVisitCount(count); // only update state if component is still mounted
+      .then((response) => response.json())
+      .then((data) => {
+        if (isMounted) {
+          setVisitCount(data.unique_visits);
+          setLoading(false);
+        } 
       })
       .catch((error) => console.error("Error:", error));
 
@@ -21,7 +25,7 @@ function VisitorCounter() {
     };
   }, []);
 
-  return <div>Visits: {visitCount}</div>;
+  return <div>{loading ? "Loading..." : `Visits: ${visitCount}`}</div>;
 }
 
 export default VisitorCounter;

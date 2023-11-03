@@ -11,7 +11,7 @@ export default function ContactInfo() {
       <VisitorCounter />
       <div className="flex items-center mb-2">
         <MailIcon className="mr-2" fontSize="small" />
-        <span>lukamasa@gmail.com</span>
+        <span>lukama@webflow.com</span>
       </div>
       <div className="flex items-center mb-2">
         <PhoneIcon className="mr-2" fontSize="small" />
