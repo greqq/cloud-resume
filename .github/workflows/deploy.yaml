@@ -1,0 +1,78 @@
+name: Build and Deploy Next.js App
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ${{ secrets.AWS_SSO_REGION }}
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the Next.js app repository
+      - name: Checkout Next.js app
+        uses: actions/checkout@v3
+
+      # Checkout the IaC repository
+      - name: Checkout IaC Repository
+        uses: actions/checkout@v3
+        with:
+          repository: greqq/terraform-aws-infrastructure
+          path: iac-repo
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Export Next.js app
+        run: npm run export
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Run commands in the IaC directory
+      - name: Check IaC State
+        run: |
+          cd iac-repo/environments/production
+          terraform init
+          terraform plan -detailed-exitcode || terraform apply -auto-approve
+
+      - name: Get S3 Bucket Name from Terraform Outputs
+        run: |
+          BUCKET_NAME=$(terraform output -raw s3_bucket_name)
+          echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_ENV
+
+      - name: Get S3 Bucket Name from Terraform Outputs
+        run: |
+          echo $BUCKET_NAME
+
+    #   - name: Upload Website Files to S3
+    #     run: |
+    #       aws s3 sync ./out/ s3://$BUCKET_NAME/
+
+    #   # Get the CloudFront Distribution ID from Terraform outputs
+    #   - name: Get CloudFront Distribution ID
+    #     run: |
+    #       echo "CLOUDFRONT_ID=$(terraform output cloudfront_distribution_id)" >> $GITHUB_ENV
+
+    #   - name: Clear CDN Cache
+    #     run: |
+    #       aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
