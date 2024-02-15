@@ -1,0 +1,102 @@
+name: Build and deploy Next.js App
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+        # Checkout the Next.js app repository
+        - name: Checkout Next.js app
+          uses: actions/checkout@v4
+
+        # Checkout the IaC repository
+        - name: Checkout IaC Repository
+          uses: actions/checkout@v4
+          with:
+            repository: greqq/terraform-aws-infrastructure
+            path: iac-repo
+  
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            role-to-assume: ${{ secrets.AWS_ROLE }}
+            role-session-name: GitHub_to_AWS_via_FederatedOIDC
+            aws-region: ${{ secrets.AWS_SSO_REGION }}
+  
+        # Run Terraform 
+        - name: Copy terraform.tfvars from S3 to production folder
+          run: |
+            aws s3 cp s3://terraform-config-cloud-resume/terraform.tfvars iac-repo/environments/production
+            aws s3 cp s3://terraform-config-cloud-resume/backend.conf iac-repo/environments/production
+  
+        - uses: hashicorp/setup-terraform@v3
+    
+        - name: Terraform Init
+          id: init
+          run: terraform init -backend-config=backend.conf
+          working-directory: iac-repo/environments/production
+  
+        - name: Get S3 Bucket Name from Terraform Outputs
+          run: |
+            BUCKET_NAME=$(terraform-bin output -raw s3_bucket_name)
+            echo "::add-mask::$BUCKET_NAME"
+            echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_ENV
+          working-directory: iac-repo/environments/production
+  
+        # Get the CloudFront Distribution ID from Terraform outputs
+        - name: Get CloudFront Distribution ID
+          run:  |
+            CLOUDFRONT_ID=$(terraform-bin output -raw cloudfront_distribution_id)
+            echo "::add-mask::$CLOUDFRONT_ID"
+            echo "CLOUDFRONT_ID=$CLOUDFRONT_ID" >> $GITHUB_ENV
+          working-directory: iac-repo/environments/production
+  
+         # Get the Get invoke API url from terraform
+        - name: Get Invoke API Url from Terraform
+          run: |
+            PUBLIC_API_URL=$(terraform-bin output -raw dev_api_invoke_url)
+            echo "::add-mask::$PUBLIC_API_URL"
+            echo "PUBLIC_API_URL=$PUBLIC_API_URL" >> $GITHUB_ENV
+          working-directory: iac-repo/environments/production
+  
+          # Set NEXT_PUBLIC_API_URL using PUBLIC_API_URL
+        - name: Set Next.js API URL
+          run: |
+            NEXT_PUBLIC_API_URL=$PUBLIC_API_URL
+            echo "::add-mask::NEXT_PUBLIC_API_URL"
+            echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
+        
+        # Run Next.js 
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: "18"
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Build Next.js app
+          run: npm run build
+  
+        - name: Export Next.js app
+          run: npm run export
+  
+        - name: Run Cypress tests
+          run: npx cypress run --env NEXT_PUBLIC_API_URL=$PUBLIC_API_URL
+                      
+        - name: Upload Website Files to S3
+          run: |
+            aws s3 sync ./out/ s3://$BUCKET_NAME/
+  
+        - name: Clear CDN Cache
+          run: |
+            aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
+
