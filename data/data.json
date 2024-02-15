@@ -89,5 +89,13 @@
       "institution": ""
     }
   ],
-  "skills": ["Python", "Linux", "Github actions"]
+  "skills": [
+    "Python",
+    "Linux",
+    "Git & GitHub Actions",
+    "Terraform",
+    "AWS",
+    "Jenkins",
+    "CI/CD"
+  ]
 }
