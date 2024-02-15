@@ -12,11 +12,11 @@ export default function Page() {
       {/* <Header visitMessage={visitMessage} /> */}
 
       {/* Columns Section */}
-      <div className="flex flex-grow">
+      <div className="flex flex-col md:flex-row flex-grow">
         {/* First Column */}
-        <div className="w-1/4 bg-slate-800 text-white p-4">
+        <div className="w-full md:w-1/4 bg-slate-800 text-white p-4">
           {/* Profile Image */}
-          <div className=" ml-9 w-40 h-40 mr-8 border-8 border-white-400 rounded-full overflow-hidden">
+          <div className="mx-auto md:ml-9 md:mr-8 mb-4 md:mb-0 w-40 h-40 border-8 border-white rounded-full overflow-hidden">
             <img
               src="/profile.jpg"
               alt="Profile Picture"
@@ -28,8 +28,8 @@ export default function Page() {
           <Languages />
         </div>
         {/* Second Column */}
-        <div className="w-3/4 bg-gray-300 p-4">
-          <h1 className="mt-10 mb-16 text-black text-5xl font-bold">
+        <div className="w-full md:w-3/4 bg-gray-300 p-4">
+          <h1 className="text-center md:text-left mt-10 mb-16 text-black text-5xl font-bold">
             Luka Masanovic
           </h1>
           <WorkExperience />
