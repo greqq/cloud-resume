@@ -1,34 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cloud Resume Challenge Project
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This repository is part of the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/). The challenge encompasses various aspects of software development and cloud infrastructure, including front-end development, back-end services, cloud infrastructure provisioning, and CI/CD processes.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+This specific repository contains the front-end component of my cloud resume project, implemented using Next.js. It is a simple, one-page application that serves as my online resume.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The project is divided into three main repositories:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Frontend (Current Repository):** This Next.js application represents the user interface of the cloud resume. It is hosted at [https://webflowprojects.cc/](https://webflowprojects.cc/), showcasing the final, deployed resume.
 
-## Learn More
+2. **Backend Infrastructure:** The cloud infrastructure necessary for hosting and supporting the backend services is defined as code using Terraform. You can find the repository here: [Terraform Infrastructure](https://github.com/greqq/terraform-aws-infrastructure). It includes the AWS resources required for the project, such as S3 buckets, CloudFront distribution, and more.
 
-To learn more about Next.js, take a look at the following resources:
+3. **Lambda Function for Visitor Count:** A Lambda function designed to increment and retrieve a visitor count displayed on the resume. The code for this function is available at [Lambda Function](https://github.com/greqq/aws-cloud-resume-lambda).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Blog Post
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For a detailed explanation of the project, including insights into the development process, challenges encountered, and lessons learned, check out my blog post on LinkedIn.
