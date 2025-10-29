@@ -1,3 +1,5 @@
+import ResumeAISummarizer from "../../components/ResumeAISummarizer";
+
 const ProjectCard = ({ title, description, technologies, link, github }) => (
   <div className="bg-[#252A34]/60 backdrop-blur-sm rounded-xl border border-[#08D9D6]/20 p-6 hover:border-[#08D9D6]/40 transition-all duration-300 hover:transform hover:scale-105">
     <h3 className="text-2xl font-bold text-[#08D9D6] mb-3">{title}</h3>
@@ -57,6 +59,12 @@ export default function Projects() {
       link: "lukamasa.com",
       github: "https://github.com/greqq/cloud-resume",
     },
+    {
+      title: "AI Resume Summarizer",
+      description:
+        "An AI-powered resume analyzer that generates concise 3-bullet summaries optimized for tech recruiters. Built with Amazon Bedrock (Amazon Titan) for natural language processing, API Gateway for RESTful endpoints, and Lambda for serverless compute. Features real-time processing with intelligent prompt engineering.",
+      technologies: ["Amazon Bedrock", "Amazon Titan", "Lambda", "API Gateway", "Python", "React", "Next.js", "Terraform"],
+    },
   ];
 
   return (
@@ -80,6 +88,19 @@ export default function Projects() {
           {projects.map((project, index) => (
             <ProjectCard key={index} {...project} />
           ))}
+        </div>
+
+        {/* Interactive Demo Section */}
+        <div className="mb-12">
+          <div className="mb-6 text-center">
+            <h2 className="text-3xl font-bold text-[#08D9D6] mb-3">
+              Interactive Demo
+            </h2>
+            <p className="text-[#EAEAEA]/80 max-w-2xl mx-auto">
+              Try the AI Resume Summarizer live! Paste any resume text and watch as Amazon Titan generates a professional summary in seconds.
+            </p>
+          </div>
+          <ResumeAISummarizer />
         </div>
 
         {/* Call to Action */}
